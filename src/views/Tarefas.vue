@@ -1,38 +1,59 @@
 <template>
   <div>
-    <ListaDeTarefas />
-    <div
-    v-if="!$store.state.tarefas.length"
-    class="mt-16 animate__animated animate__bounceInUp"
+    <v-col
+      cols="12"
     >
-      <center>
-        <v-icon
-        size="100"
-        color="primary"
-        >
-          mdi-check
-        </v-icon>
+      <v-text-field
+        v-model="campoInput"
+        label="Qual sua tarefa?"
+        outlined
+        clearable
+        @keyup.enter="handleAddTarefa()"
+      >
+      </v-text-field>
+    </v-col>
 
+    <v-list
+      flat
+      subheader
+    >
+      <v-list-item-group
+        multiple
+        active-class=""
+      >
         <div
-        class="text-h5 primary--text"
+        v-for="tarefa, index in $store.state.tarefas"
+        :key="index"
         >
-          Nenhuma tarefa
+          <Tarefa
+          :tarefa="tarefa"
+          />  
         </div>
-
-      </center>
-    </div>
+      </v-list-item-group>
+    </v-list>
   </div>
 </template>
 
 <script>
-import ListaDeTarefas from '../components/tarefas/ListaDeTarefas.vue';
+import Tarefa from '../components/tarefas/Tarefa.vue'
+
   export default {
-    name: 'Home',
-    components: {
-      ListaDeTarefas
+    name: 'TarefasView',
+
+    components:{
+        Tarefa
     },
-    created(){
-      this.$store.commit('buscaTarefas');
+    data(){
+      return{
+        campoInput: null,
+        
+      }
     },
+    methods:{
+      handleAddTarefa(){
+        this.$store.commit('adicionaTarefa', this.campoInput)
+          this.campoInput = null;
+      }
+    }
   }
 </script>
