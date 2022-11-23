@@ -5,22 +5,22 @@ import Tarefas from '../views/Tarefas.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'Tarefas',
-    component: Tarefas
-  },
-  {
-    path: '/sobre',
-    name: 'Sobre',
-    component: () => import('../views/AboutView.vue')
-  }
+   {
+      path: '/',
+      name: 'Tarefas',
+      component: Tarefas
+   },
+   {
+      path: '/sobre',
+      name: 'Sobre',
+      component: () => import('../views/AboutView.vue')
+   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+   mode: 'history',
+   base: process.env.BASE_URL,
+   routes
 })
 
 export default router
